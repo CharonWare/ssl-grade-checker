@@ -1,5 +1,9 @@
+#!/bin/bash
+
 echo "\nRunning docker container."
+
 echo "This may take a while..."
+
 # /tmp/sites is mounted to /tmp in the container, sites.txt file handed in via the -hostfile flag
 # Container output is sanitised and put into a location (TBD) in a file called results.txt
 # This can be used as a pipeline artifact to pass the results into something more presentable
@@ -11,4 +15,5 @@ docker run -v /tmp/sites:/tmp:ro --read-only --cap-drop all --rm -it jumanjiman/
 | awk 'ORS=NR%2?" : ":RS' \
 | tr -d '\r' \
 | tee $HOME/code/ssl-grade-checker/results.txt
+
 echo "\nContainer finished."
